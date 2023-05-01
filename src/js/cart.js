@@ -1,11 +1,15 @@
 import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItemTemplate(cartItems);
-  //const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  //document.querySelector(".product-list").innerHTML = htmlItems.join("");
-  document.querySelector(".product-list").innerHTML = htmlItems;
+  let cartItems = [];
+  let cartQty = localStorage.length;
+  for(let i = 1; i <= cartQty; i++) {
+    const key = `so-cart-${i}`
+    console.log(i);
+    cartItems.push(getLocalStorage(key));
+  }
+  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
 function cartItemTemplate(item) {
@@ -27,4 +31,4 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
-renderCartContents(); 
+renderCartContents();
