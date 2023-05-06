@@ -1,11 +1,14 @@
-import { setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 function addProductToCart(product) {
-  let cardQty = localStorage.length;
-  cardQty += 1;
-  const key = `so-cart-${cardQty}`;
-  setLocalStorage(key, product);
+  let products = getLocalStorage("so-cart");
+  if (!Array.isArray(products)) { 
+    products = [products];
+    products.shift();
+  }
+  products.push(product);
+  setLocalStorage("so-cart", products);
 }
 // add to cart button event handler
 async function addToCartHandler(e) {
@@ -17,5 +20,3 @@ async function addToCartHandler(e) {
 document
   .getElementById("addToCart")
   .addEventListener("click", addToCartHandler);
-
-  // Either will work for me :P
