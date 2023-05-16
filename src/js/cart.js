@@ -28,26 +28,21 @@ function cartItemTemplate(item) {
 
 renderCartContents();
 
-function addRemoveItemListeners() {
-  const removeItemButtons = document.querySelectorAll('.remove-item');
-  
-  removeItemButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const itemId = this.dataset.id;
-      const cartItems = JSON.parse(localStorage.getItem('so-cart')) || [];
-      
-      const updatedCartItems = cartItems.filter(item => item.id !== itemId);
-      
-      localStorage.setItem('so-cart', JSON.stringify(updatedCartItems));
-      
-      renderCartContents();
-      addRemoveItemListeners();
-    });
-  });
+function removeItemFromCart(event) {
+  const cartItem = event.target.closest(".cart-card");
+  const id = cartItem.dataset.id;
+
+  const cart = getLocalStorage("so-cart");
+  const newCart = JSON.parse(cart) || [];
+  newCart = newCart.filter(item => item.id !== id);
+  localStorage.setItem("cart", JSON.stringify(newCart));
+
+  cartItem.remove();
 }
 
-window.onload = function() {
-  renderCartContents();
-  addRemoveItemListeners();
-};
+document.querySelectorAll(".remove-item").forEach((item) => {
+  item.addEventListener("click", removeItemFromCart);
+});
+
+renderCartContents();
 
