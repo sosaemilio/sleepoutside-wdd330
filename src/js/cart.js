@@ -34,20 +34,20 @@ function addRemoveItemListeners() {
   removeItemButtons.forEach(button => {
     button.addEventListener('click', function() {
       const itemId = this.dataset.id;
-      const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartItems = JSON.parse(localStorage.getItem('so-cart')) || [];
       
       const updatedCartItems = cartItems.filter(item => item.id !== itemId);
       
-      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+      localStorage.setItem('so-cart', JSON.stringify(updatedCartItems));
       
-      renderCartItems();
+      renderCartContents();
       addRemoveItemListeners();
     });
   });
 }
 
 window.onload = function() {
-  renderCartItems();
+  renderCartContents();
   addRemoveItemListeners();
 };
 
