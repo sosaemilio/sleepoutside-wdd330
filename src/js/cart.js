@@ -1,9 +1,14 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
+  // Attaching event listener after rendering the cart items
+  document.querySelectorAll('.remove-item').forEach(item => {
+    item.addEventListener('click', removeItemFromCart);
+  });
 }
 
 function cartItemTemplate(item) {
@@ -26,23 +31,19 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
-renderCartContents();
-
 function removeItemFromCart(event) {
-  const cartItem = event.target.closest(".cart-card");
-  const id = cartItem.dataset.id;
+  const itemId = event.target.getAttribute('data-id');
 
-  const cart = getLocalStorage("so-cart");
-  const newCart = JSON.parse(cart) || [];
-  newCart = newCart.filter(item => item.id !== id);
-  localStorage.setItem("cart", JSON.stringify(newCart));
+  let cartItems = getLocalStorage("so-cart");
+  cartItems = cartItems.filter(item => item.id !== itemId);  // Removing the clicked item
+  
+  // Updating the cart items in local storage
+  setLocalStorage("so-cart", cartItems);
 
-  cartItem.remove();
+  // Re-rendering the cart items
+  renderCartContents();
 }
 
-document.querySelectorAll(".remove-item").forEach((item) => {
-  item.addEventListener("click", removeItemFromCart);
-});
-
 renderCartContents();
+
 
