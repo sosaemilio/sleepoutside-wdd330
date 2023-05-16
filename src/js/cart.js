@@ -20,9 +20,34 @@ function cartItemTemplate(item) {
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
+  <span data-id="${item.id}" class="remove-item">X</span>
 </li>`;
 
   return newItem;
 }
 
 renderCartContents();
+
+function addRemoveItemListeners() {
+  const removeItemButtons = document.querySelectorAll('.remove-item');
+  
+  removeItemButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const itemId = this.dataset.id;
+      const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      const updatedCartItems = cartItems.filter(item => item.id !== itemId);
+      
+      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+      
+      renderCartItems();
+      addRemoveItemListeners();
+    });
+  });
+}
+
+window.onload = function() {
+  renderCartItems();
+  addRemoveItemListeners();
+};
+
