@@ -1,9 +1,4 @@
 import productList from "./productList.mjs";
-import Alert from "./Alert.js";
-
+import { loadHeaderFooter } from "./utils.mjs";
 productList("tents", "ul.product-list");
-
-const alert = new Alert();
-alert.init();
-
-
+loadHeaderFooter();

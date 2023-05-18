@@ -36,3 +36,42 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   }
   parentElement.insertAdjacentHTML(position, htmlList.join(""));
 }
+
+export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear=true) {
+  // get template using function...no need to loop this time.
+  if (clear) {
+      parentElement.innerHTML = "";
+  }
+  const htmlList = await templateFn(data);
+  parentElement.insertAdjacentHTML(position, htmlList);
+  if(callback) {
+      callback(data);
+  }
+}
+
+function loadTemplate(path) {
+  // wait what?  we are returning a new function? 
+  // this is called currying and can be very helpful.
+  return async function () {
+      const res = await fetch(path);
+      if (res.ok) {
+      const html = await res.text();
+      return html;
+      }
+  };
+} 
+
+
+
+export async function loadHeaderFooter() {
+
+  const headerTemplateFn = loadTemplate("/partials/header.html");
+  const footerTemplateFn = loadTemplate("/partials/footer.html");
+  const headerE1 = document.querySelector("#main-header");
+  const footerE1 = document.querySelector("#main-footer");
+
+  renderWithTemplate(headerTemplateFn, headerE1);
+  renderWithTemplate(footerTemplateFn, footerE1);
+
+}
+

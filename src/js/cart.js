@@ -6,8 +6,8 @@ function renderCartContents() {
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 
   // Attaching event listener after rendering the cart items
-  document.querySelectorAll('.remove-item').forEach(item => {
-    item.addEventListener('click', removeItemFromCart);
+  document.querySelectorAll(".remove-item").forEach((item) => {
+    item.addEventListener("Click", removeItemFromCart);
   });
 }
 
@@ -32,11 +32,11 @@ function cartItemTemplate(item) {
 }
 
 function removeItemFromCart(event) {
-  const itemId = event.target.getAttribute('data-id');
+  const itemId = event.target.getAttribute("data-id");
 
   let cartItems = getLocalStorage("so-cart");
-  cartItems = cartItems.filter(item => item.id !== itemId);  // Removing the clicked item
-  
+  cartItems = cartItems.filter((item) => item.id !== itemId); // Removing the clicked item
+
   // Updating the cart items in local storage
   setLocalStorage("so-cart", cartItems);
 
@@ -45,5 +45,3 @@ function removeItemFromCart(event) {
 }
 
 renderCartContents();
-
-
