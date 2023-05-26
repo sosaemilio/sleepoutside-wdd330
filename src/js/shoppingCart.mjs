@@ -5,6 +5,7 @@ export default function ShoppingCart() {
   if (cartItems != null) {
     const outputEl = document.querySelector(".product-list");
     renderListWithTemplate(cartItemTemplate, outputEl, cartItems);
+    displayTotal(cartItems);
   } else {
     console.log("No Products on the Cart");
   }
@@ -27,4 +28,26 @@ function cartItemTemplate(item) {
 </li>`;
 
   return newItem;
+}
+
+function displayTotal(cartItems) {
+  /*
+  * Function used to display the total on the cart page.
+  * Parameters:
+  *   cartItem: Any
+  */
+  let total = calculateTotal(cartItems);
+  document.querySelector(".cart-total").textContent = `Total: $${total}`;
+  document.querySelector(".cart-footer").setAttribute('style', 'display: block');
+}
+
+function calculateTotal(products) {
+  /*
+  * Function used to calculate the total of a group of products.
+  * Parameters:
+  *   products: [object]
+  */
+  let total = 0.00;
+  cartItems.map (product => total += parseFloat(product.FinalPrice));
+  return total;
 }
