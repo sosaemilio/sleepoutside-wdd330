@@ -28,7 +28,7 @@ function renderProductDetails() {
     if (product) {
         document.getElementById("productName").innerText = product.Brand.Name;
         document.getElementById("productNameWithoutBrand").textContent = product.NameWithoutBrand;
-        document.getElementById("productImage").src = product.Image;
+        document.getElementById("productImage").src = product.Images.PrimaryLarge;
         document.getElementById("productImage").alt = product.Name;
         document.getElementById("productFinalPrice").textContent = product.FinalPrice;
         document.getElementById("productColorName").textContent = product.ColorName;
