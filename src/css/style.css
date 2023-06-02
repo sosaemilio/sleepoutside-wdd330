@@ -229,3 +229,11 @@ footer {
 .product-categories * {
   width: 150px;
 }
+/*
+** Cart Classes
+*/
+
+.cart-footer {
+  display: none;
+}
+
