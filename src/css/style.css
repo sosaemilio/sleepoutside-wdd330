@@ -220,6 +220,7 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
 .product-categories {
   display: flex;
   justify-content: center;
@@ -227,7 +228,6 @@ footer {
 
 .product-categories * {
   width: 150px;
-
 }
 
 /*
