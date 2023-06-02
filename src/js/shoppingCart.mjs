@@ -2,8 +2,12 @@ import { getLocalStorage, renderListWithTemplate } from "./utils.mjs";
 
 export default function ShoppingCart() {
   const cartItems = getLocalStorage("so-cart");
-  const outputEl = document.querySelector(".product-list");
-  renderListWithTemplate(cartItemTemplate, outputEl, cartItems);
+  if (cartItems != null) {
+    const outputEl = document.querySelector(".product-list");
+    renderListWithTemplate(cartItemTemplate, outputEl, cartItems);
+  } else {
+    console.log("No Products on the Cart");
+  }
 }
 
 function cartItemTemplate(item) {
