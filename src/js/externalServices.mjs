@@ -8,7 +8,7 @@ function convertToJson(res) {
   }
 }
 
-export function getData(category = "tents") {
+export function getProductsByCategory(category = "tents") {
   return fetch(baseURL + `products/search/${category}`)
     .then(convertToJson)
     .then((data) => data.Result);
