@@ -48,6 +48,6 @@ function calculateTotal(products) {
   *   products: [object]
   */
   let total = 0.00;
-  cartItems.map (product => total += parseFloat(product.FinalPrice));
+  products.map (product => total += parseFloat(product.FinalPrice));
   return total;
 }
