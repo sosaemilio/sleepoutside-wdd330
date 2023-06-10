@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, clearLocalStorage } from "./utils.mjs";
 import { checkout } from "./externalServices.mjs";
 
 function formDataToJSON(formElement) {
@@ -33,12 +33,14 @@ const checkoutProcess = {
   shipping: 0,
   tax: 0,
   orderTotal: 0,
+
   init: function (key, outputSelector) {
     this.key = key;
     this.outputSelector = outputSelector;
     this.list = getLocalStorage(key);
     this.calculateItemSummary();
   },
+
   calculateItemSummary: function () {
     const summaryElement = document.querySelector(
       this.outputSelector + " #cartTotal"
@@ -52,6 +54,7 @@ const checkoutProcess = {
     this.itemTotal = amounts.reduce((sum, item) => sum + item);
     summaryElement.innerText = "$" + this.itemTotal;
   },
+
   calculateOrdertotal: function () {
     this.shipping = 10 + (this.list.length - 1) * 2;
     this.tax = (this.itemTotal * 0.06).toFixed(2);
@@ -62,6 +65,7 @@ const checkoutProcess = {
     ).toFixed(2);
     this.displayOrderTotals();
   },
+
   displayOrderTotals: function () {
     const shipping = document.querySelector(this.outputSelector + " #shipping");
     const tax = document.querySelector(this.outputSelector + " #tax");
@@ -72,6 +76,7 @@ const checkoutProcess = {
     tax.innerText = "$" + this.tax;
     orderTotal.innerText = "$" + this.orderTotal;
   },
+
   checkout: async function (form) {
     const json = formDataToJSON(form);
     // add totals, and item details
@@ -84,10 +89,22 @@ const checkoutProcess = {
     try {
       const res = await checkout(json);
       console.log(res);
+      this.orderSuccess();
     } catch (err) {
       console.log(err);
     }
   },
+
+  // Helpers
+  orderSuccess: function () {
+    this.clearCart("so-cart")
+    var base_url = window.location.origin;
+    location.href = base_url + "/checkout/success.html";
+  },
+
+  clearCart: function(key) {
+    clearLocalStorage(key);
+  }
 };
 
 export default checkoutProcess;

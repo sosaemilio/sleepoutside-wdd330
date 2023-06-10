@@ -13,6 +13,10 @@ export function getLocalStorage(key) {
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
+
+export function clearLocalStorage(key) {
+  localStorage.removeItem(key);
+}
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -73,5 +77,26 @@ export async function loadHeaderFooter() {
   renderWithTemplate(headerTemplateFn, headerE1);
   renderWithTemplate(footerTemplateFn, footerE1);
 
+}
+
+function alertMessage(message, scroll=true) {
+  const alert = document.createElement("div");
+
+  alert.classList.add("alert");
+
+  // add a listener to the alert to see if they clicked on the X
+  // if they did then remove the child
+  alert.addEventListener('click', function(e) {
+    /*if( ) { // how can we tell if they clicked on our X or on something else?  hint: check out e.target.tagName or e.target.innerText
+      main.removeChild(this);
+    }*/
+  })
+
+  const main = document.querySelector('main');
+  main.prepend(alert);
+  // make sure they see the alert by scrolling to the top of the window
+  //we may not always want to do this...so default to scroll=true, but allow it to be passed in and overridden.
+  /*if(scroll)
+    window.scrollTo(0,0); */
 }
 
