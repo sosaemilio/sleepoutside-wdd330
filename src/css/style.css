@@ -247,3 +247,15 @@ footer {
 .cart-footer {
   display: none;
 }
+
+.alert {
+  background-color: #f0a868;
+  color: black;
+  display: flex;
+  padding: 0rem 1rem;
+  margin-top: 0.3rem;
+}
+
+.alert > p:nth-child(1) {
+  flex-grow: 2;
+}
