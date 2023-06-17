@@ -1,7 +1,9 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, alertMessage } from "./utils.mjs";
 import checkoutProcess from "./checkoutProcess.mjs";
 
 loadHeaderFooter();
+
+alertMessage("hola");
 
 checkoutProcess.init("so-cart", ".checkout-summary");
 
