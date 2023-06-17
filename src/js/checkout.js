@@ -3,8 +3,6 @@ import checkoutProcess from "./checkoutProcess.mjs";
 
 loadHeaderFooter();
 
-alertMessage("hola");
-
 checkoutProcess.init("so-cart", ".checkout-summary");
 
 document
