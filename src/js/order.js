@@ -5,5 +5,4 @@ const token = checkLogin();
 
 let orders = orderRequest(token);
 
-console.log(orders)
-
+console.log(orders);
